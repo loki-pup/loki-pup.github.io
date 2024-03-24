@@ -25,6 +25,4 @@ If we view the problem as a classification task, we can calculate the probabilit
 
 Contrastive loss tries to minimize the distance when images are from the same class but maximizes the distance otherwise. It takes three inputs: "left" image (x1), "right" image (x2) and label (y), and the 0 or 1 label indicates whether the images are from the same class. The contrastive loss function is defined as:
 
-\begin{align}
-$$ L = (1-y)D(x1, x2)^2 +y(max(0,margin−D(x1, x2)))^2 $$
-\end{align}
+$ L = (1-y)D(x1, x2)^2 +y(max(0,margin−D(x1, x2)))^2 $
