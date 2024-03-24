@@ -23,4 +23,6 @@ If we view the problem as a classification task, we can calculate the probabilit
 
 <img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/left image2.png" width="100%" height="100%" />
 
-Contrastive loss tries to minimize the distance when images are from the same class but maximizes the distance otherwise. It takes three inputs: "left" image (x1), "right" image (x2) and label (y), and the 0 or 1 label indicates whether the images are from the same class. The contrastive loss function is defined as: $L = (1-y)D(x1, x2)^2 +y(max(0,margin−D(x1, x2)))^2$
+Contrastive loss tries to minimize the distance when images are from the same class but maximizes the distance otherwise. It takes three inputs: "left" image (x1), "right" image (x2) and label (y), and the 0 or 1 label indicates whether the images are from the same class. The contrastive loss function is defined as: 
+
+$$ L = \left(1-y\right)D\left(x1, x2\right)^2 +y\left(max\left(0,margin−D\left(x1, x2\right)\right)\right)^2$
