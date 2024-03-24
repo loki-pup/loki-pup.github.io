@@ -13,6 +13,10 @@ To solve this task, I proposed two methods: Siamese Network with a triplet loss;
 
 ## Siamese Network with a contrastive loss
 
-### classification task
+### Classification Task
 
 If we view the problem as a classification task, we can calculate the probability of the image pair being the Totally-Looks-Like image pair. During the training stage, we label the TLL image pairs as 1 and other random matched image pairs as 0, and then train the neural network to identify the real image pair.
+
+### Network Architecture
+
+<img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/left image2.png" width="100%" height="100%" />
