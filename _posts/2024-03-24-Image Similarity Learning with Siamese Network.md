@@ -1,9 +1,0 @@
----
-title: Image Similarity Learning with Siamese Network
-teaser: cv, image similarity learning
-category: Python
-tags: [computer vision]
----
-
-testt
-2223
