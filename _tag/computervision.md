@@ -1,3 +1,3 @@
 ---
-title: 🏷 Computer Vision
+title: 🏷 computer vision
 ---
