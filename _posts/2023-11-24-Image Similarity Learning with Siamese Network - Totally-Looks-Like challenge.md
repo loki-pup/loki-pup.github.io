@@ -13,6 +13,8 @@ To solve this task, I proposed two methods: Siamese Network with a triplet loss;
 
 ## Siamese Network with a contrastive loss
 
+Siamese networks are neural networks that contains multiple identical sub-networks, and these sub-networks share the same architecture and weights. Each sub-network processes a different input and produces an embedding vector for further training. And the reason why we choose the Siamese network is that it has proven to be particularly helpful in supervised similarity learning for the small dataset.
+
 ### Classification Task
 
 If we view the problem as a classification task, we can calculate the probability of the image pair being the Totally-Looks-Like image pair. During the training stage, we label the TLL image pairs as 1 and other random matched image pairs as 0, and then train the neural network to identify the real image pair.
@@ -20,3 +22,7 @@ If we view the problem as a classification task, we can calculate the probabilit
 ### Network Architecture
 
 <img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/left image2.png" width="100%" height="100%" />
+
+Contrastive loss tries to minimize the distance when images are from the same class but maximizes the distance otherwise. It takes three inputs: "left" image (x1), "right" image (x2) and label (y), and the 0 or 1 label indicates whether the images are from the same class. The contrastive loss function is defined as:
+
+$$ L = (1-y)D(x1, x2)^2 +y(max(0,margin−D(x1, x2)))^2 $$
