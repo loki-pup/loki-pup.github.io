@@ -39,6 +39,8 @@ If we involve the challenge in an image retrieval task, we can calculate the sim
 
 <img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/image.png" width="100%" height="100%" />
 
+*S. Das, “Image similarity using Triplet Loss,” Medium, Jul. 23, 2019. https://towardsdatascience.com/image-similarity-using-triplet-loss-3744c0f67973*
+
 Triplet loss is a distance based loss function, it takes three inputs: anchor image (a), positive image (p) and negative image (n), and aims to minimize the distance between the same class images while maximizing the distance between the images from different classes. The anchor image and the positive image are from the same class, while the negative image is from a different class. The triplet loss function is defined as:
 
 <img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/eq2.png" width="100%" height="100%" />
@@ -80,11 +82,16 @@ The trained Siamese network with a triplet loss can give a good representation o
 
 1. I didn't add the deep network at first: 0.616.
 
-2. I add the deep network: 0.81 the scores-3 become about 0.81. Also, we test 3 different pretrained models: clip\_rn50x4, clip\_rn101 and clip\_vitb32. According to Table~\ref{tabctr}, clip\_rn50x4 has the best performance. So with clip\_rn50x4 as the pretrained model, we further explore the effects of different epochs. By setting the training epoch to 2, 3, 4, 5, we can see that the model has the highest score with 4 epochs.
+2. I add the deep network: 0.81
 
-%https://github.com/jianjieluo/OpenAI-CLIP-Feature
-According to \cite{b2}, the local grid features might also be helpful in the visual downstream tasks, so we try to replace the global visual features with the local grid features. However, it only achieves 69\% top2-accuracy. Moreover, we try to concatenate the local grid features and the global visual features as the inputs of the model, but it has an even lower score.
+3. I test 3 different pretrained models: clip_rn50x4, clip_rn101 and clip_vitb32. And clip_rn50x4 has the best performance. So with clip_rn50x4 as the pretrained model, I further explore the effects of different epochs. By setting the training epoch to 2, 3, 4, 5, the model has the highest score with 4 epochs.
 
-As shown in Table~\ref{tabctr}, with the clip\_rn50x4 model as the pretrained model and 4 training epochs, the trained Siamese network with a contrastive loss gives the highest score by far. However, if we change the model input from global visual features to local grid features or concatenate them, the scores decrease by almost 15\%. Unlike other image retrieval tasks or classification tasks, the similarity of the TLL image pair is based on the high level perception instead of the low level local features like color, shape and texture. So with the local grid features, the model fails to learn the high level global perception of the images, leading to the bad model performance. 
+4. I replace the global visual features with the local grid features: 0.693 
 
-We also try to put the clip\_rn50x4 model in the deep network, so the network can directly update the weights of the clip\_rn50x4 model. However, the model can't finish one epoch training within 18 hours, so we give up this idea.
+5. I concatenate the local grid features and the global visual features as the inputs of the model: 0.686
+
+### Conclusion
+
+With the clip_rn50x4 model as the pretrained model and 4 training epochs, the trained Siamese network with a contrastive loss gives the highest score by far. However, if I change the model input from global visual features to local grid features or concatenate them, the scores decrease by almost 15%. Unlike other image retrieval tasks or classification tasks, the similarity of the TLL image pair is based on the high level perception instead of the low level local features like color, shape and texture. So with the local grid features, the model fails to learn the high level global perception of the images, leading to the bad model performance. 
+
+I also try to put the clip_rn50x4 model in the deep network, so the network can directly update the weights of the clip_rn50x4 model. However, the model can't finish one epoch training within 18 hours, so I give up this idea.
