@@ -39,7 +39,7 @@ If we involve the challenge in an image retrieval task, we can calculate the sim
 
 <img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/image.png" width="100%" height="100%" />
 
-*S. Das, “Image similarity using Triplet Loss,” Medium, Jul. 23, 2019. https://towardsdatascience.com/image-similarity-using-triplet-loss-3744c0f67973*
+*S. Das, “Image similarity using Triplet Loss,” Medium, Jul. 23, 2019. [https://towardsdatascience.com/image-similarity-using-triplet-loss-3744c0f67973](https://towardsdatascience.com/image-similarity-using-triplet-loss-3744c0f67973)*
 
 Triplet loss is a distance based loss function, it takes three inputs: anchor image (a), positive image (p) and negative image (n), and aims to minimize the distance between the same class images while maximizing the distance between the images from different classes. The anchor image and the positive image are from the same class, while the negative image is from a different class. The triplet loss function is defined as:
 
@@ -95,3 +95,17 @@ The trained Siamese network with a triplet loss can give a good representation o
 With the clip_rn50x4 model as the pretrained model and 4 training epochs, the trained Siamese network with a contrastive loss gives the highest score by far. However, if I change the model input from global visual features to local grid features or concatenate them, the scores decrease by almost 15%. Unlike other image retrieval tasks or classification tasks, the similarity of the TLL image pair is based on the high level perception instead of the low level local features like color, shape and texture. So with the local grid features, the model fails to learn the high level global perception of the images, leading to the bad model performance. 
 
 I also try to put the clip_rn50x4 model in the deep network, so the network can directly update the weights of the clip_rn50x4 model. However, the model can't finish one epoch training within 18 hours, so I give up this idea.
+
+### Error Analysis
+
+<img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/viserror2.png" width="100%" height="100%" />
+
+*correct precdition*
+
+<img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/viserror.png" width="100%" height="100%" />
+
+*wrong precdition*
+
+*Visual results of Siamese network with a triplet loss: the first image is the "left" images, other three images are the "right" images of top3-highest probabilities, the image in the red square is the ground truth image*
+
+The model is able to give the correct prediction, even though the color and the text of the image pair are different. However, about the wrong prediction, the model predicts other two candidate images have the higher probabilities. As "qyx" and "opv" images have the similar hairstyle and facial expression to the "left" image, it means the model can capture the high level global features. But the model might ignore some low level local features like the texture, since the "fhp" image looks like the "left" image in the way that the objects share similar wrinkled texture. Thus, to improve the model performance, I need to consider adding the local features into the model.
