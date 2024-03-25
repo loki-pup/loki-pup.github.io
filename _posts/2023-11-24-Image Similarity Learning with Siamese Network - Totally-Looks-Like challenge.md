@@ -38,7 +38,6 @@ If we involve the challenge in an image retrieval task, we can calculate the sim
 ### Network Architecture
 
 <img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/image.png" width="100%" height="100%" />
-
 *S. Das, “Image similarity using Triplet Loss,” Medium, Jul. 23, 2019. [https://towardsdatascience.com/image-similarity-using-triplet-loss-3744c0f67973](https://towardsdatascience.com/image-similarity-using-triplet-loss-3744c0f67973)*
 
 Triplet loss is a distance based loss function, it takes three inputs: anchor image (a), positive image (p) and negative image (n), and aims to minimize the distance between the same class images while maximizing the distance between the images from different classes. The anchor image and the positive image are from the same class, while the negative image is from a different class. The triplet loss function is defined as:
@@ -99,11 +98,9 @@ I also try to put the clip_rn50x4 model in the deep network, so the network can 
 ### Error Analysis
 
 <img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/viserror2.png" width="100%" height="100%" />
-
 *correct precdition*
 
 <img src="https://raw.githubusercontent.com/loki-pup/lokiphoto/master/viserror.png" width="100%" height="100%" />
-
 *wrong precdition*
 
 *Visual results of Siamese network with a triplet loss: the first image is the "left" images, other three images are the "right" images of top3-highest probabilities, the image in the red square is the ground truth image*
