@@ -19,7 +19,7 @@ Siamese BERT (SBERT) is developed based on BERT. It removes the final classifica
 ## Evidence Retrieval
 
 After searching the training dataset, it appears that the maximum evidence list for claim-text is 5, so the limit of the final
-evidence list is set to 5. But the first step is to reduce the range of evidence passages by prematching the claim text with evidence.
+evidence list is set to 5. But the first step is to reduce the range of evidence passages by prematching the claim text with evidence, since the evidence corpus has 1208827 evidence.
 
 ### Prematch Routine
 
@@ -51,5 +51,32 @@ F-score is used here to measure how well the retrieval component works. The resu
 
 ## Claim-label Classification
 
-To solve this multiclass classification problem, I tried to implement BERT model in 4 different settings based on the following 2 questions. Should the claim-text and the evidence be treated as sentence pairs or a single sentence? Should all the evidence for a single claim-text be joined and treated as a sentence or treated independently as a single sample?
+To solve this multiclass classification problem, I implement BERT model in 4 different settings based on the following 2 questions. Should the claim-text and the evidence be treated as sentence pairs or a single sentence? Should all the evidence for a single claim-text be concatenated and treated as a sentence or treated independently as a single sample?
 
+### Preprocessing
+
+First, for each claim-text, I concatenate all the evidence and treat it as a single sentence. Then, I make two versions when encoding the data. One has the seg-ids for sentence pairs classification, while the other one concatenates the claim-text and the evidence as a single sentence.
+
+Second, for each claim-text, each evidence is processed separately. And it also has two versions, with or without seg-ids. Due to the sequentially stored data, shuffling is required. 
+
+### BERT
+
+When implementing the model, I also try to add a dropout layer to prevent the model overfits. The prediction returns the claim-label of each claim-text. When the evidence is not concatenated, I group the data by the claim-text, count the number of each claim-label and select the claim-label with the most votes.
+
+### Evaluation
+
+Accuracy is used to assesses how well the system classifies the claim.
+
+| Evidence concatenated? | Single sentence or pairs? | Dropout | Accuracy |
+| ---------------------- | ------------------------- | ------- | -------- |
+| yes                    | pairs                     | no      | 0.33     |
+| yes                    | single                    | no      | 0.37     |
+| no                     | pairs                     | no      | 0.55     |
+| no                     | single                    | no      | 0.52     |
+| no                     | single                    | yes     | 0.5      |
+
+It's clear that the model has the best performance when the claim-text is concatenated with its each evidence and treated as a single sentence.
+
+The worst performance goes to the model with concatenated evidence. Since the training dataset has only 1228 claims, if the evidence are concatenated, the processed training dataset also has only 1228 claims, which makes the model prone to overfitting. But with single evidence, the training dataset has around 5000 claims and can provide more valid data to the model. That also explains why the model performs better with single evidence.
+
+Although the evidence are relevant to the claim-text, the claim-text and evidence shouldn't be concatenated and treated as a single sentence, as it can confuse the model with partially similar sentences and lead to lower accuracy.
