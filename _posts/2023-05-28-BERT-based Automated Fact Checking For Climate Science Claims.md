@@ -67,13 +67,13 @@ When implementing the model, I also try to add a dropout layer to prevent the mo
 
 Accuracy is used to assesses how well the system classifies the claim.
 
-| Evidence concatenated? | Single sentence or pairs? | Dropout | Accuracy |
-| ---------------------- | ------------------------- | ------- | -------- |
-| yes                    | pairs                     | no      | 0.33     |
-| yes                    | single                    | no      | 0.37     |
-| no                     | pairs                     | no      | 0.55     |
-| no                     | single                    | no      | 0.52     |
-| no                     | single                    | yes     | 0.5      |
+| Evidence concatenated?   | Single sentence or pairs?   | Dropout   | Accuracy |
+| ------------------------ | --------------------------- | --------- | -------- |
+| yes                      | pairs                       | no        | 0.33     |
+| yes                      | single                      | no        | 0.37     |
+| no                       | pairs                       | no        | 0.55     |
+| no                       | single                      | no        | 0.52     |
+| no                       | single                      | yes       | 0.5      |
 
 It's clear that the model has the best performance when the claim-text is concatenated with its each evidence and treated as a single sentence.
 
