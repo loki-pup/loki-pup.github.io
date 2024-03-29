@@ -43,4 +43,13 @@ SBERT is used to calculate the cosine similarity score between claim-text and ea
 
 To implement BERT model, the evidence retrieval is treated as a sentence pairs classification problem. The first sentence is the claim-text, while the second sentence is the evidence candidate. So during the preprocessing stage, the pair of claim-text and real evidence is labelled as 1, while the pair of claim-text and evidence candidate from the prematch evidence list is labelled as 0. Then the data will be shuffled when the datasets are created by dataloader, since the training data are stored sequentially.
 
-BERT model is trained on the dataset, and the model will be saveevery epochd  if the development accuracy achieves improvement. And the prediction returns the probability of each claim-text, evidence candidate pair. Then similar to SBERT, from the returned highest 5 probabilities, the first threshold is 0.8 and the second threshold is 0.5. If none of the threshold is met, the evidence with highest 5 probabilities are returned.
+BERT model is trained on the dataset, and every epoch the model will be saved if the development accuracy achieves improvement. In the prediction stage it returns the probability of each claim-text, evidence candidate pair. Then similar to SBERT, among the returned highest 5 probabilities, 0.8 and 0.5 are set as the first and the second threshold. If none of the threshold is met, the evidence passages of the highest 5 probabilities are returned.
+
+### Evaluation
+
+F-score is used here to measure how well the retrieval component works. The results of SBERT and BERT models evaluated on the development datasets are around 0.2 and 0.49. From the evidence retrieval F-scores, it's obvious that BERT performs much better than SBERT. Although SBERT is much faster and more efficient, the lack of model training makes it a general model and leads to the bad performance, as the claim-text and evidence are about climate science, while SBERT is trained on a general corpus. With lemmatization, the F-score increases by 0.023, indicating an improvement, since the prematch process is more accurate with the lemmatizied words.
+
+## Claim-label Classification
+
+To solve this multiclass classification problem, I tried to implement BERT model in 4 different settings based on the following 2 questions. Should the claim-text and the evidence be treated as sentence pairs or a single sentence? Should all the evidence for a single claim-text be joined and treated as a sentence or treated independently as a single sample?
+
