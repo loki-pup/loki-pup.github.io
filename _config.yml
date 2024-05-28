@@ -86,3 +86,5 @@ plugins:
   - jekyll-sitemap
 
 paginate: 10
+
+exclude: [vendor]
