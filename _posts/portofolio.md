@@ -1,0 +1,1 @@
+responsive: by changing the text size and column width for different platform
