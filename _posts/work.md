@@ -17,6 +17,7 @@ power bi report
 4. pop out navigation
 5. direct query can change column format in model view
 6. direct query better return less data, can done via group by
+7. bookmark with selected visuals can keep the filter and only modify the visuals
 
 power apps
 1. dynamic input in gallery
