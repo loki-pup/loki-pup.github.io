@@ -18,6 +18,9 @@ power bi report
 5. direct query can change column format in model view
 6. direct query better return less data, can done via group by
 7. bookmark with selected visuals can keep the filter and only modify the visuals
+8. table doesn't show duplicate records, so to include duplicate records, better have an aggregate column, like sum(sales)
 
 power apps
 1. dynamic input in gallery
+2. power bi query requires the user is a workplace viewer and have the build permission of the dataset
+3. In solution, put dev / prod as environment variable, then store relevant values in SharePoint list, run power automate flow to query the list and get values in power apps.
