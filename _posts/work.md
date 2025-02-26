@@ -31,3 +31,4 @@ aws
 2. in glue, pyspark can be weird. For items column has nested json in nested json, it's struct / map in dynamoDB. I f use pyspark F.explode directly, it can lead to item_key mismatch. Like when processing a row, it tries to read b row's item_keys.
 3. when using UDF to process row by row, it also has weird phenomenon if the data type is struct / map. When processing a row, it either somehow loses some item_keys of a, or somehow adds the item_keys of b into a
 4. in the end, it transforms the items column to json string foramt, then loads the json when processing row, in this way, it doesn't have weird keys problem.
+5. same as power bi, when processing large volume of data, retrieve the needed columns at first, so it reduces the data size
