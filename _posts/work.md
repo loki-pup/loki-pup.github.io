@@ -25,3 +25,8 @@ power apps
 1. dynamic input in gallery
 2. power bi query requires the user is a workplace viewer and have the build permission of the dataset
 3. In solution, put dev / prod as environment variable, then store relevant values in SharePoint list, run power automate flow to query the list and get values in power apps.
+
+aws
+1. glue job has around 8 seconds start up time, if the script runs less than 10 mins, can consider using lambda
+2. in glue, pyspark can be weird. For items column has nested json in nested json, it's struct / map in dynamoDB. I f use pyspark F.explode directly, it can lead to item_key mismatch. Like when processing a row, it tries to read b row's item_keys.
+3. when using UDF to process row by row, it also has weird phenomeon if the data type is struct / map.
