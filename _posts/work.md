@@ -29,4 +29,5 @@ power apps
 aws
 1. glue job has around 8 seconds start up time, if the script runs less than 10 mins, can consider using lambda
 2. in glue, pyspark can be weird. For items column has nested json in nested json, it's struct / map in dynamoDB. I f use pyspark F.explode directly, it can lead to item_key mismatch. Like when processing a row, it tries to read b row's item_keys.
-3. when using UDF to process row by row, it also has weird phenomeon if the data type is struct / map.
+3. when using UDF to process row by row, it also has weird phenomenon if the data type is struct / map. When processing a row, it either somehow loses some item_keys of a, or somehow adds the item_keys of b into a
+4. in the end, it transforms the items column to json string foramt, then loads the json when processing row, in this way, it doesn't have weird keys problem.
