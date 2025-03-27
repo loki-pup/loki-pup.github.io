@@ -30,5 +30,10 @@ aws
 1. glue job has around 8 seconds start up time, if the script runs less than 10 mins, can consider using lambda
 2. in glue, pyspark can be weird. For items column has nested json in nested json, it's struct / map in dynamoDB. I f use pyspark F.explode directly, it can lead to item_key mismatch. Like when processing a row, it tries to read b row's item_keys.
 3. when using UDF to process row by row, it also has weird phenomenon if the data type is struct / map. When processing a row, it either somehow loses some item_keys of a, or somehow adds the item_keys of b into a
-4. in the end, it transforms the items column to json string foramt, then loads the json when processing row, in this way, it doesn't have weird keys problem.
-5. same as power bi, when processing large volume of data, retrieve the needed columns at first, so it reduces the data size
+4. in the end, it transforms the items column to json string foramt, then loads the json when processing row, in this way, it doesn't have weird keys problem. 
+or when reading the data, define the column data type to be string, so it saves the transform time.
+5. same as power bi, when processing large volume of data, retrieve the needed columns at first, so it reduces the data size.
+6. in python Variables that are created outside of a function (as in all of the examples in the previous pages) are known as global variables.
+Global variables can be used by everyone, both inside of functions and outside.
+If you create a variable with the same name inside a function, this variable will be local, and can only be used inside the function. The global variable with the same name will remain as it was, global and with the original value.
+python doesn't really have constant data type, but you can use all capital letters variable to represent it.
