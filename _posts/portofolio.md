@@ -1,3 +1,8 @@
+In the parent, you don’t pass the argument because you're just giving the child the function to use.
+
+In the child, you decide when and how to call that function — so you provide the argument there.
+
+
 responsive: by changing the text size and column width for different platform
 
 * flex: Utilities for controlling how flex items both grow and shrink.
