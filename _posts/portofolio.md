@@ -2,6 +2,8 @@ In the parent, you don’t pass the argument because you're just giving the chil
 
 In the child, you decide when and how to call that function — so you provide the argument there.
 
+In React, **children** is a special prop that automatically captures whatever you place between the opening and closing tags of a component.
+
 
 responsive: by changing the text size and column width for different platform
 
