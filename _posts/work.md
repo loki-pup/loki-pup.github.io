@@ -18,8 +18,9 @@ power bi report
 5. direct query can change column format in model view
 6. direct query better return less data, can done via group by
 7. bookmark with selected visuals can keep the filter and only modify the visuals
-8. table doesn't show duplicate records, so to include duplicate records, better have an aggregate column, like sum(sales)
-9. power bi link can choose go to specific page
+8. to show and hide visuals via bookmark, must select both show and hidden visuals when update
+9. table doesn't show duplicate records, so to include duplicate records, better have an aggregate column, like sum(sales)
+10. power bi link can choose go to specific page
 
 power apps
 1. dynamic input in gallery
