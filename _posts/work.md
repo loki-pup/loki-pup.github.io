@@ -6,6 +6,7 @@ paginated report:
 since in stored procedure, it first concates the query string, then excutes the query. and '' can escape '.
 SET @CustomersStr = REPLACE(REPLACE(@Customers,'''',''''''),',',''',''');
 5. the new added field can also be manually added into the query result field
+6. to display close / open projects, based on the include closed project filter, and prefilter the return dataset. Get the closed project list first, then filter the user permissions project list like =CInt(Fields!projectCode.Value) in @Projects. @Projects is a parameter allow multiple values, and the default takes from closed project list project codes
 
 SQL
 1. CONVERT(VARCHAR(15), b.jobNo) COLLATE SQL_Latin1_General_CP1_CI_AS AS [Project No],
@@ -21,6 +22,22 @@ power bi report
 8. to show and hide visuals via bookmark, must select both show and hidden visuals when update
 9. table doesn't show duplicate records, so to include duplicate records, better have an aggregate column, like sum(sales)
 10. power bi link can choose go to specific page
+11. to switch order of hierarchy, or unit like hour / day, can use field parameters like switchActual = {
+    ("Time Worked2", NAMEOF('EmpTimesheet'[aday]), 0,"day","Days by Clients","Total Days"),
+    ("Time Worked2", NAMEOF('EmpTimesheet'[ahour]), 1,"hour","Hours by Clients","Total Hours")
+}. Add exrtra columns to indicate the slicer / title. If want to sum the columns, create measures first, then field parameters.
+12. if switch order of hierarchy only works properly in desktop, like switchVisual = {
+    ("Project", NAMEOF('EmpTimesheet'[Project Code and Name]), 0,"by project"),
+    ("Employee", NAMEOF('EmpTimesheet'[Primary Name]), 1,"by project"),
+    ("Employee", NAMEOF('EmpTimesheet'[Primary Name]), 2,"by employee"),
+    ("Project", NAMEOF('EmpTimesheet'[Project Code and Name]), 3,"by employee")
+}, when switching in web page, it can't jump to the top. Then split it in two like: switchVisual = {
+    ("Project", NAMEOF('EmpTimesheet'[Project Code and Name]), 0,"by project"),
+    ("Employee", NAMEOF('EmpTimesheet'[Primary Name]), 0,"by employee")
+}, switchVisual2 = {
+    ("Employee", NAMEOF('EmpTimesheet'[Primary Name]), 0,"by project"),
+    ("Project", NAMEOF('EmpTimesheet'[Project Code and Name]), 0,"by employee")
+}, and build 1-1 relationship
 
 power apps
 1. dynamic input in gallery
@@ -38,3 +55,4 @@ or when reading the data, define the column data type to be string, so it saves 
 Global variables can be used by everyone, both inside of functions and outside.
 If you create a variable with the same name inside a function, this variable will be local, and can only be used inside the function. The global variable with the same name will remain as it was, global and with the original value.
 python doesn't really have constant data type, but you can use all capital letters variable to represent it.
+
