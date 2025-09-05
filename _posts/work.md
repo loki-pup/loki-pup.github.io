@@ -56,3 +56,7 @@ Global variables can be used by everyone, both inside of functions and outside.
 If you create a variable with the same name inside a function, this variable will be local, and can only be used inside the function. The global variable with the same name will remain as it was, global and with the original value.
 python doesn't really have constant data type, but you can use all capital letters variable to represent it.
 
+
+
+mongoDB and vs code
+1. VS Code’s MongoDB extension (or Mongo shell output panel) only shows the first 20 results by default. It doesn’t mean MongoDB lost your data.
