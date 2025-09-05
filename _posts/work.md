@@ -60,3 +60,5 @@ python doesn't really have constant data type, but you can use all capital lette
 
 mongoDB and vs code
 1. VS Code’s MongoDB extension (or Mongo shell output panel) only shows the first 20 results by default. It doesn’t mean MongoDB lost your data.
+2. Use .toArray() in the shell to see all results.
+
