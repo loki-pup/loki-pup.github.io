@@ -44,6 +44,14 @@ power apps
 2. power bi query requires the user is a workplace viewer and have the build permission of the dataset
 3. In solution, put dev / prod as environment variable, then store relevant values in SharePoint list, run power automate flow to query the list and get values in power apps.
 
+power automate
+1. get sharepoint folder: https://learn.microsoft.com/en-us/previous-versions/office/sharepoint-csom/ee537053(v=office.15)
+   FileSystemObjectType = 0 -> file; 1 -> folder; 2 -> site
+   _api/web/lists/getbytitle('@{triggerBody()['text_1']}')/items?$expand=Folder&$filter=FSObjType eq 1&$select=Id,Folder/Name,Folder/ServerRelativeUrl&$top=5000
+2. get sharepoint file: FileRef is file reference, file name
+   _api/web/lists/getbytitle('@{triggerBody()['text_1']}')/items?$expand=File&$filter=(FSObjType eq 0 and (substringof('.xlsx', FileRef) or substringof('.xls', FileRef)))&$select=Id,File/Name,File/ServerRelativeUrl&$top=5000
+
+
 aws
 1. glue job has around 8 seconds start up time, if the script runs less than 10 mins, can consider using lambda
 2. in glue, pyspark can be weird. For items column has nested json in nested json, it's struct / map in dynamoDB. I f use pyspark F.explode directly, it can lead to item_key mismatch. Like when processing a row, it tries to read b row's item_keys.
@@ -61,4 +69,5 @@ python doesn't really have constant data type, but you can use all capital lette
 mongoDB and vs code
 1. VS Code’s MongoDB extension (or Mongo shell output panel) only shows the first 20 results by default. It doesn’t mean MongoDB lost your data.
 2. Use .toArray() in the shell to see all results.
+
 
